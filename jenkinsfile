@@ -1,0 +1,32 @@
+pipeline{
+    any agent
+    stages{
+        stage('checksum')
+        {
+            steps{
+                checksum
+            }
+        }
+        stage('Build'){
+            steps{
+                script{
+                    sh 'docker build -t to-do app .'
+                }
+            }
+        }
+        stage('Run'){
+            steps{
+              script {
+                sh 'docker run rm'
+              }
+        }
+    }
+    stage('Deploy'){
+        steps{
+            script{
+              sh 'docker-compose up -d'
+            }
+        }
+    }
+}
+}
